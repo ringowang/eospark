@@ -1,0 +1,8 @@
+html, body{
+  background: #ececec;
+}
+
+html, body, :global(#root) {
+  height: 100%;
+  font-size: 14px;
+}

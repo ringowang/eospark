@@ -1,0 +1,78 @@
+.basic{
+    background: white;
+    padding: 20px;
+}
+
+.detail{
+    background: white;
+    margin-top: 10px;
+    padding: 20px;
+}
+
+.title{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.line{
+    overflow: hidden;
+    padding: 5px 0;
+}
+
+.left{
+    float: left;
+    width: 300px;
+}
+
+.right{
+    float: left;
+}
+
+.normalText{
+    font-size: 13px;
+}
+
+.bread{
+    margin-bottom: 15px;
+}
+
+.tradeTbData{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actionRow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary{
+    display: flex;
+    justify-content: space-around;
+}
+
+.impText{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.line2{
+    height: 1px;
+    background: #ccc;
+}
+
+.indexContainer{
+    display: flex;
+}
+
+.spinWrapper{
+    text-align: center;
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 30px 50px;
+    margin: 20px 0;
+}
