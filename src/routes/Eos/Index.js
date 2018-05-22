@@ -52,7 +52,7 @@ class Index extends Component{
       params:{
         interface_name: 'get_block_info',
         page_num: 1,
-        page_size: 5
+        page_size: 20
       },
       callback: (data) => {
         this.setState({
@@ -96,14 +96,7 @@ class Index extends Component{
     });
   };
 
-  componentWillMount(){
-
-    this.t = setInterval(()=>{
-      this.getRecentBlocks();
-    },5000);
-
-    this.getRecentBlocks();
-
+  getBasicInfo = ()=>{
     this.props.dispatch({
       type: 'eos/getBasicInfo',
       params: {
@@ -115,6 +108,21 @@ class Index extends Component{
         })
       }
     });
+  };
+
+  componentWillMount(){
+
+    this.t = setInterval(()=>{
+      this.getRecentBlocks();
+      this.getBasicInfo();
+    },2000);
+    this.getRecentBlocks();
+    this.getBasicInfo();
+
+    this.t2 = setInterval(()=>{
+      this.getTrend();
+    },5000);
+    this.getTrend(true);
 
     this.props.dispatch({
       type: 'eos/getBPBasicInfo',
@@ -127,11 +135,6 @@ class Index extends Component{
         })
       }
     });
-
-    this.t2 = setInterval(()=>{
-      this.getTrend();
-    },5000);
-    this.getTrend(true);
   }
 
   componentDidMount(){
@@ -311,19 +314,19 @@ class Index extends Component{
         <div className={styles.line2}></div>
         <div className={styles.basic}>
           <div className={styles.summary}>
-            <div>
+            <div className={styles.summaryItem}>
               <div>区块数量</div>
               <div className={styles.impText}>{tool.formatNumber(basicInfo.head_block_num)}</div>
             </div>
-            <div>
+            <div className={styles.summaryItem}>
               <div>交易数量</div>
               <div className={styles.impText}>{tool.formatNumber(basicInfo.total_transaction_num)}</div>
             </div>
-            <div>
+            <div className={styles.summaryItem}>
               <div>消息数量</div>
               <div className={styles.impText}>{tool.formatNumber(basicInfo.total_action_num)}</div>
             </div>
-            <div>
+            <div className={styles.summaryItem}>
               <div>账户数量</div>
               <div className={styles.impText}>{tool.formatNumber(basicInfo.total_account_num)}</div>
             </div>

@@ -54,6 +54,12 @@
     justify-content: space-around;
 }
 
+.summaryItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .impText{
     font-size: 18px;
     font-weight: bold;
