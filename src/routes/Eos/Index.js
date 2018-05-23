@@ -220,21 +220,22 @@ class Index extends Component{
         'location': 'Near Dali (Talifu, Ta-li), Yunnan, China',
         'lat': '25.7',
         'lng': '100.2',
-        'num': 1000
+        'num': 4000
       }, {
         'name': '飞侠节点',
         'location': 'Tango, Japan',
         'lat': '35.8',
         'lng': '134.8',
-        'num':998
+        'num':2000
       }];
 
     requestService.exec('https://antvis.github.io/static/data/world.geo.json').then((mapData)=>{
 
       const chart = new G2.Chart({
         container: 'mountNode',
-        forceFit: true,
-        height: 400,
+        forceFit: false,
+        width: 974,
+        height: 561,
         padding: [ 0, 20, 0 ]
       });
       // force sync scales
@@ -245,10 +246,8 @@ class Index extends Component{
       chart.coord().reflect();
       chart.legend(false);
       chart.axis(false);
-
-      // style the tooltip
-      chart.tooltip({
-        showTitle: false,
+      chart.tooltip(true,{
+        showTitle:false
       });
 
       // data set
@@ -289,15 +288,21 @@ class Index extends Component{
         }
       });
       const pointView = chart.view();
-      pointView.source(userData);
+      pointView.source(userData, {
+        num: {
+          alias: '出块数量'
+        },
+        name:{
+          alias: '节点名称'
+        }
+      });
       pointView.point()
         .position('x*y')
-        .size('num', [2, 30])
+        .size('num', [10,20])
         .shape('circle')
         .opacity(0.45)
         .color('#2592fc')
         .tooltip('name*num');
-
       chart.render();
     });
   };
@@ -331,7 +336,7 @@ class Index extends Component{
               <div className={styles.impText}>{tool.formatNumber(basicInfo.total_account_num)}</div>
             </div>
           </div>
-          <div id="mountNode"></div>
+          <div id="mountNode" style={{marginTop: 10}}></div>
         </div>
         <div className={styles.basic} style={{marginTop: 10}}>
           <div>
