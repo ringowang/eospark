@@ -5,6 +5,7 @@ import { Layout,Select,Input,LocaleProvider } from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import Config from '../../config/index';
 import styles from "./EosBasicLayout.css";
+import logo from '../../assets/logo.png';
 const { Header, Content } = Layout;
 const Search = Input.Search;
 const Option = Select.Option;
@@ -91,9 +92,11 @@ class MyHeader extends Component{
 
   render(){
     return (
-      <Header style={{background: 'white'}}>
+      <Header style={{background: 'white',paddingLeft:2}}>
         <div className={styles.headerContent}>
-          <a href="javascript:void(0)" onClick={this.toIndex}>EosPark</a>
+          <a href="javascript:void(0)" onClick={this.toIndex}>
+            <img src={logo} style={{height:50}}/>
+          </a>
         <Search placeholder="区块/交易/地址/账户/BP"
                 value={this.state.keyword}
                 onChange={this.onChange}
