@@ -79,6 +79,7 @@ class Block extends Component{
         callback: (data)=>{
           this.setState({
             loading: false,
+            detail: data
           });
           if(data.raw_data){
             console.log('》》》》》已经加载');
@@ -87,9 +88,6 @@ class Block extends Component{
             s = s.replace(/\n/g,"");
             jQuery(this.mypre).html(this.syntaxHighlight(JSON.parse(s)));
           }
-          this.setState({
-            detail: data
-          });
         },
         errCallback: ()=>{
           this.setState({
