@@ -20,6 +20,9 @@ class Account extends Component{
       permDataSource:[],
       loading: true,
       count: 0,
+      num1: 0,
+      num2: 0,
+      num3: 0,
     };
 
 
@@ -123,10 +126,14 @@ class Account extends Component{
         account_name: id,
       },
       callback: (data)=>{
+        let subAccountDataSource = data.sub_account;
+        let permDataSource = this.getDataSource(data.permissions);
         this.setState({
           detail: data,
-          subAccountDataSource: data.sub_account,
-          permDataSource: this.getDataSource(data.permissions),
+          subAccountDataSource: subAccountDataSource,
+          num3: subAccountDataSource.length,
+          permDataSource: permDataSource,
+          num2: permDataSource.length,
           loading: false,
         })
       },
@@ -158,6 +165,7 @@ class Account extends Component{
         this.setState({
           dataSource: data.transaction_info,
           count: data.total,
+          num1: data.total,
         })
       }
     });
@@ -223,6 +231,9 @@ class Account extends Component{
     if(detail.signatures && detail.signatures.length > 0) {
       signatures = detail.signatures.join(',');
     }
+    let tab1 = "交易(" + this.state.num1 + ")";
+    let tab2 = "权限组(" + this.state.num2 + ")";
+    let tab3 = "从账号(" + this.state.num3 + ")";
     return (
       <div>
         <div className={styles.bread}>
@@ -240,7 +251,7 @@ class Account extends Component{
         </div>
         <div className={styles.detail}>
           <Tabs defaultActiveKey="1" onChange={()=>{}}>
-            <TabPane tab="交易" key="1">
+            <TabPane tab={tab1} key="1">
               <MyTable
                 showHeader={false}
                 dataSource={dataSource}
@@ -250,14 +261,14 @@ class Account extends Component{
                 rowKey={record=>record.id}
               />
             </TabPane>
-            <TabPane tab="权限组" key="2">
+            <TabPane tab={tab2} key="2">
               <Table locale={{emptyText: '暂无数据'}}
                 dataSource={permDataSource}
                 columns={this.columns2}
                 pagination={false}
               />
             </TabPane>
-            <TabPane tab="从账号" key="3">
+            <TabPane tab={tab3} key="3">
               <Table locale={{emptyText: '暂无数据'}}
                 dataSource={subAccountDataSource}
                 columns={this.columns3}

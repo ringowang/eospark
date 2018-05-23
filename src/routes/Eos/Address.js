@@ -123,6 +123,7 @@ class Address extends Component{
 
   renderDetail = () => {
     let {dataSource} = this.state;
+    let tab1 = `关联账户(${dataSource.length})`;
     return (
       <div>
         <div className={styles.bread}>
@@ -135,7 +136,7 @@ class Address extends Component{
 
         <div className={styles.detail}>
           <Tabs defaultActiveKey="1" onChange={()=>{}}>
-            <TabPane tab="关联账户" key="1">
+            <TabPane tab={tab1} key="1">
               <Table locale={{emptyText: '暂无数据'}}
                 dataSource={dataSource}
                 columns={this.columns}

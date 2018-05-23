@@ -15,6 +15,7 @@ class Trade extends Component{
       detail: {},
       dataSource: [],
       loading: true,
+      count: 0,
     };
     this.domLoadFlag = false;
     this.mypre = null;
@@ -89,8 +90,10 @@ class Trade extends Component{
         page_size: 10,
       },
       callback: (data)=>{
+        let dataSource = this.getDataSource(data.action_info);
         this.setState({
-          dataSource: this.getDataSource(data.action_info)
+          dataSource: dataSource,
+          count: dataSource.length,
         })
       }
     });
@@ -175,6 +178,7 @@ class Trade extends Component{
         signatures = detail.signatures;
       }
     }
+    let tab1 = `actions(${this.state.count})`;
     return (
       <div>
 
@@ -214,7 +218,7 @@ class Trade extends Component{
         </div>
         <div className={styles.detail}>
           <Tabs defaultActiveKey="1" onChange={()=>{}}>
-            <TabPane tab="actions" key="1">
+            <TabPane tab={tab1} key="1">
               <Table
                 showHeader={false}
                 dataSource={dataSource}

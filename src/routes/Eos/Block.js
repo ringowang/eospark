@@ -183,6 +183,7 @@ class Block extends Component{
 
   renderDetail = ()=>{
       let {detail,dataSource} = this.state;
+      let tab1 = `交易(${this.state.count})`;
       return (
         <div>
           <div className={styles.bread}>
@@ -210,7 +211,7 @@ class Block extends Component{
 
           <div className={styles.detail}>
             <Tabs defaultActiveKey="1" onChange={()=>{}}>
-              <TabPane tab="交易" key="1">
+              <TabPane tab={tab1} key="1">
                 <MyTable
                   showHeader={false}
                   dataSource={dataSource}
