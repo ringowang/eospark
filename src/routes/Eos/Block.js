@@ -97,8 +97,6 @@ class Block extends Component{
           });
         }
       });
-
-      this.getBlockTrade(1, 10);
     };
 
     componentDidMount(){
@@ -178,6 +176,11 @@ class Block extends Component{
     );
   };
 
+  toBlockPage = (id)=>{
+    let s = tool.getUri('/block/'+id);
+    window.location = window.location.origin + s;
+  };
+
   renderDetail = ()=>{
       let {detail,dataSource} = this.state;
       return (
@@ -194,21 +197,14 @@ class Block extends Component{
             </div>
             <div className={styles.line}>
               <div className={styles.left}>出块节点：<a href="javascript:void(0);" onClick={()=>{this.toBlockProducerPage(detail.producer)}}>{detail.producer}</a></div>
-              <div className={styles.right}>block_mroot：{detail.block_mroot}</div>
-            </div>
-            <div className={styles.line}>
-              <div className={styles.left}>新出块节点：-- </div>
               <div className={styles.right}>transaction_mroot：{detail.transaction_mroot}</div>
             </div>
             <div className={styles.line}>
-              <div className={styles.left}>前一个区块：-- </div>
+              <div className={styles.left}>前一个区块：<a href="javascript:void(0)" onClick={()=>this.toBlockPage(detail.block_num-1)}>#{detail.block_num-1}</a></div>
               <div className={styles.right}>出块节点签名：{detail.producer_signature}</div>
             </div>
             <div className={styles.line}>
-              <div className={styles.left}>后一个区块：-- </div>
-            </div>
-            <div className={styles.line}>
-              <div className={styles.left}>区块大小：-- </div>
+              <div className={styles.left}>后一个区块：<a href="javascript:void(0)" onClick={()=>this.toBlockPage(detail.block_num+1)}>#{detail.block_num+1}</a></div>
             </div>
           </div>
 

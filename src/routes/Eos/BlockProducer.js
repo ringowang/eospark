@@ -65,7 +65,6 @@ class BlockProducer extends Component{
         }
       }
     });
-    this.getBPBlock(1,10);
   };
 
   componentWillMount(){
