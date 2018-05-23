@@ -155,7 +155,6 @@ class Block extends Component{
 
 
   render(){
-    return this.renderDetail();
     let {detail,loading} = this.state;
     if(loading){
       return (
@@ -181,20 +180,24 @@ class Block extends Component{
     window.location = window.location.origin + s;
   };
 
+  toIndex = ()=>{
+    window.location = window.location.origin + tool.getUri('/');
+  };
+
   renderDetail = ()=>{
       let {detail,dataSource} = this.state;
       let tab1 = `交易(${this.state.count})`;
       return (
         <div>
           <div className={styles.bread}>
-            首页 / 区块#{detail.block_num}
+            <a href="javascript:void(0)" style={{color:'rgba(0, 0, 0, 0.65)'}} onClick={this.toIndex}>首页</a> / 区块#{detail.block_num}
           </div>
           <div className={styles.basic}>
             <div className={styles.title}>区块#{detail.block_num}</div>
 
             <div className={styles.line}>
               <div className={styles.left}>出块时间：{detail.timestamp}</div>
-              <div className={styles.right}>Hash: {detail.id}</div>
+              <div className={styles.right}>block_id: {detail.id}</div>
             </div>
             <div className={styles.line}>
               <div className={styles.left}>出块节点：<a href="javascript:void(0);" onClick={()=>{this.toBlockProducerPage(detail.producer)}}>{detail.producer}</a></div>

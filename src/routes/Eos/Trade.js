@@ -168,6 +168,14 @@ class Trade extends Component{
     }
   }
 
+  toIndex = ()=>{
+    window.location = window.location.origin + tool.getUri('/');
+  };
+
+  toBlockPage2 = (id)=>{
+    window.location = window.location.origin + tool.getUri('/block/'+id);
+  };
+
   renderDetail = () => {
     let {detail,dataSource} = this.state;
     let signatures = '';
@@ -183,7 +191,7 @@ class Trade extends Component{
       <div>
 
         <div className={styles.bread}>
-          首页 / 区块#{detail.ref_block_num} / 交易详情
+          <a href="javascript:void(0)" style={{color:'rgba(0, 0, 0, 0.65)'}} onClick={this.toIndex}>首页</a> / <a href="javascript:void(0)" style={{color:'rgba(0, 0, 0, 0.65)'}} onClick={()=>this.toBlockPage2(detail.ref_block_num)}>区块#{detail.ref_block_num}</a> / 交易详情
         </div>
 
         <div className={styles.basic}>
@@ -194,13 +202,14 @@ class Trade extends Component{
             <div className={styles.right}>签名: {signatures}</div>
           </div>
           <div className={styles.line}>
-            <div>所在区块：<a href="javascript:void(0)" onClick={ ()=> {this.toBlockPage(detail.block_num)} }>#{detail.block_num}</a></div>
+            <div className={styles.left}>所在区块：<a href="javascript:void(0)" onClick={ ()=> {this.toBlockPage(detail.block_num)} }>#{detail.block_num}</a></div>
+            <div className={styles.right}>压缩数据：{detail.packed_trx} </div>
           </div>
           <div className={styles.line}>
-            <div>引用区块：<a href="javascript:void(0)" onClick={ ()=> {this.toBlockPage(detail.block_num)} }>#{detail.ref_block_num}</a></div>
+            <div>引用区块：<a href="javascript:void(0)" onClick={ ()=> {this.toBlockPage(detail.ref_block_num)} }>#{detail.ref_block_num}</a></div>
           </div>
           <div className={styles.line}>
-            <div>确认数：-- </div>
+            <div>确认数：{detail.block_num - detail.ref_block_num} </div>
           </div>
           <div className={styles.line}>
             <div>max_net_usage_words：{detail.max_kcpu_usage} </div>
@@ -211,10 +220,6 @@ class Trade extends Component{
           <div className={styles.line}>
             <div>delay_sec：{detail.delay_sec}</div>
           </div>
-          <div className={styles.line}>
-            <div>压缩数据：{detail.packed_trx} </div>
-          </div>
-
         </div>
         <div className={styles.detail}>
           <Tabs defaultActiveKey="1" onChange={()=>{}}>

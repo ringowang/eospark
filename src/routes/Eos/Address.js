@@ -120,6 +120,9 @@ class Address extends Component{
     );
   };
 
+  toIndex = ()=>{
+    window.location = window.location.origin + tool.getUri('/');
+  };
 
   renderDetail = () => {
     let {dataSource} = this.state;
@@ -127,7 +130,7 @@ class Address extends Component{
     return (
       <div>
         <div className={styles.bread}>
-          首页 / 地址
+          <a href="javascript:void(0)" style={{color:'rgba(0, 0, 0, 0.65)'}} onClick={this.toIndex}>首页</a> / 地址
         </div>
 
         <div className={styles.basic}>

@@ -95,12 +95,16 @@ class BlockProducer extends Component{
     );
   };
 
+  toIndex = ()=>{
+    window.location = window.location.origin + tool.getUri('/');
+  };
+
   renderDetail = () => {
     let {detail,dataSource} = this.state;
     return (
       <div>
         <div className={styles.bread}>
-          首页 / 超级节点
+          <a href="javascript:void(0)" style={{color:'rgba(0, 0, 0, 0.65)'}} onClick={this.toIndex}>首页</a> / 超级节点
         </div>
         <div className={styles.basic}>
           <div className={styles.title}>{detail.name}</div>
