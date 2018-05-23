@@ -84,13 +84,21 @@ class Index extends Component{
           let a = coinInfo.length / 10;
           a = Math.floor(a);
           drawData.push(coinInfo[0]);
+          let min = coinInfo[0].market_cap;
           for(let i = 1; i <= 10; i++ ){
             // console.log(a*i, coinInfo[a*i]);
-            drawData.push(coinInfo[a*i]);
+            let v = coinInfo[a*i];
+            drawData.push(v);
+            if(min > v.market_cap){
+              min = v.market_cap;
+            }
           }
           drawData.push(coinInfo[coinInfo.length-1]);
+          if(min > coinInfo[coinInfo.length-1].market_cap){
+            min = coinInfo[coinInfo.length-1].market_cap;
+          }
 
-          this.drawChart(drawData);
+          this.drawChart(drawData,min);
         }
       }
     });
@@ -154,7 +162,7 @@ class Index extends Component{
     this.props.dispatch(routerRedux.push(tool.getUri('/bp/'+id)));
   };
 
-  drawChart = (data)=>{
+  drawChart = (data, min)=>{
     document.getElementById('myChart').innerHTML = "";
     // console.log('要绘制的折线图数据',data);
     const chart = new G2.Chart({
@@ -169,7 +177,7 @@ class Index extends Component{
     //http://antvis.github.io/g2/doc/tutorial/start/axis.html  formatter 坐标轴的格式化展示
     chart.scale({
       market_cap: {
-        min: 10000000000
+        min: min
       },
       timestamp: {
         type: 'time',
