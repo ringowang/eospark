@@ -33,10 +33,10 @@ class Trade extends Component{
      if(data){
        return (<div>
          <div style={{display: 'flex'}}>
-           <div style={{flex: 1}}>发起人：{data.actor}@{data.permission}</div>
-           <div style={{flex: 1}}>合约: {data.account}</div>
-           <div style={{flex: 1}}>接口: {data.name}</div>
-           <div style={{flex: 1}}>参数: {data.data}</div>
+           <div style={{width: 220}}>发起人：{data.actor}@{data.permission}</div>
+           <div style={{width: 160}}>合约: {data.account}</div>
+           <div style={{ width: 150}}>接口: {data.name}</div>
+           <div style={{ width: 760}} className={styles.params}>参数: {data.data}</div>
          </div>
          <div style={{marginTop: 10, color: '#ccc'}}>hex_data {data.hex_data}</div>
        </div>);

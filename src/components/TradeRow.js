@@ -1,4 +1,5 @@
 import styles from './css/TradeRow.css';
+import {Icon} from 'antd';
 
 let ActionItem = (data,index,isLast=false)=>{
   let creater = '';
@@ -15,7 +16,9 @@ let ActionItem = (data,index,isLast=false)=>{
         <div style={{float:'left', width: 220}}>发起人：{creater}</div>
         <div style={{float:'left', width: 160}}>合约: {data.account}</div>
         <div style={{float:'left', width: 150}}>接口: {data.name}</div>
-        <div style={{float:'left'}}>参数: {data.data}</div>
+        <div className={styles.params} style={{float:'left', width: 760}}>
+          <span>参数: {data.data}{data.data}</span>
+        </div>
       </div>
       {
         isLast ? null : <div className={styles.division}></div>

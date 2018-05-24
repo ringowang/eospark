@@ -116,3 +116,9 @@
     word-break:break-all;
     margin-left: 150px;
 }
+
+.params{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
