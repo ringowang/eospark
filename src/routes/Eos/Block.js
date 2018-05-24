@@ -71,11 +71,16 @@ class Block extends Component{
     }
 
     init = (id)=>{
+      let params = {};
+      //hash值
+      if(id.length == 64){
+        params.block_hash = id;
+      }else{
+        params.block_num = parseInt(id);
+      }
       this.props.dispatch({
         type: 'eos/getBlockDetail',
-        params:{
-          block_num: parseInt(id),
-        },
+        params,
         callback: (data)=>{
           this.setState({
             loading: false,

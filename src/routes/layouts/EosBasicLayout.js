@@ -48,38 +48,48 @@ class MyHeader extends Component{
   };
 
   search = (value)=>{
-    // 地址， eos开头的长字符串，20个字符以上
-    // 账户， 短字符串，20个字符以下
-    // 交易， 000开头的长字符串，20个字符以上
-    // 区块， number类型，1千万以内
-    // BP, 暂时不考虑
+
+    /**
+     地址：以EOS开头的字符串且长度为53位
+     区块：纯数字就认为是区块的高度   如果以至少3个0开头且长度为64位的字符串就认为是区块hash
+     账户：长度不超过12位的字符串
+     交易：剩下的且长度为64位当作交易的hash来处理
+
+     长度介于12到64位 或者超过64位的字符串 我们直接给他跳转到谷歌搜索吧 哈哈哈
+     */
 
     let prefix = '/' + this.getNetType();
     if(value && value.trim()!=''){
       value = value.trim();
       let len = value.length;
-      if(len > 20){
-        if(value.indexOf('eos') === 0){
+      let flag = 0;
+      if(len == 53){
+        if(value.toLowerCase().indexOf("eos") === 0){
           window.location = window.location.origin + prefix + '/address/'+value;
-          //this.props.dispatch(routerRedux.push(prefix + '/address/'+value));
+          flag = 1;
+        }
+      }else if(len == 64){
+        flag = 1;
+        if(value.toLowerCase().indexOf('000') === 0){
+          window.location = window.location.origin + prefix + '/block/'+value;
         }else{
           window.location = window.location.origin + prefix + '/tx/'+value;
-          //this.props.dispatch(routerRedux.push(prefix + '/tx/'+value));
         }
-      }else{
-        if(isNaN(value)){
-          window.location = window.location.origin + prefix + '/account/'+value;
-          //this.props.dispatch(routerRedux.push(prefix + '/account/'+value));
-        }else{
+      } else if(len <= 12){
+        flag = 1;
+        if(!isNaN(value)){
           window.location = window.location.origin + prefix + '/block/'+value;
-          //this.props.dispatch(routerRedux.push(prefix + '/block/'+value));
+        }else{
+          window.location = window.location.origin + prefix + '/account/'+value;
         }
       }
+
       this.setState({
         keyword: ''
       });
     }
   };
+
 
   toIndex = ()=>{
     let netType = this.getNetType();
@@ -97,7 +107,7 @@ class MyHeader extends Component{
           <a href="javascript:void(0)" onClick={this.toIndex}>
             <img src="http://eospark.com/logo.png" style={{height:50}}/>
           </a>
-        <Search placeholder="区块/交易/地址/账户/BP"
+        <Search placeholder="区块/交易/地址/账户"
                 value={this.state.keyword}
                 onChange={this.onChange}
                 onSearch={value => this.search(value)}
