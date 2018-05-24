@@ -132,10 +132,12 @@ const EosBasicLayout = ({component:Component, ...rest})=>{
       <div style={{height:'100%'}}>
         <Layout style={{height:'100%'}}>
             <EosHeader/>
-            <Content className={styles.content}>
-              <LocaleProvider locale={zhCN}>
-               <Component {...matchProps}/>
-              </LocaleProvider>
+            <Content style={{background: '#f0f2f5'}}>
+              <div className={styles.content}>
+                <LocaleProvider locale={zhCN}>
+                 <Component {...matchProps}/>
+                </LocaleProvider>
+              </div>
             </Content>
         </Layout>
       </div>
