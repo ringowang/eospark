@@ -113,7 +113,7 @@ class MyHeader extends Component{
                 onSearch={value => this.search(value)}
                 enterButton="搜索"
                 size="large"
-                style={{width: 400, marginRight:200}} />
+                style={{width: 600, marginRight:200}} />
         <Select value={this.state.netType}  defaultValue="mainnet" style={{ width: 80 }} onChange={this.handleChange}>
           <Option value="mainnet">主网</Option>
           <Option value="testnet">测试网</Option>

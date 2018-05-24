@@ -6,7 +6,7 @@ import { Tabs,Table,Spin } from 'antd';
 import MyTable from '../../components/MyTable';
 import styles from './css/Block.css';
 import NotFound from '../../components/NotFound';
-import ActionItem from '../../components/ActionItem';
+import TradeRow from '../../components/TradeRow';
 const TabPane = Tabs.TabPane;
 
 
@@ -28,6 +28,7 @@ class Account extends Component{
 
     this.columns = [{
       title: '交易',
+      className:'myCol',
       dataIndex: 'id',
       key: 'id',
       render: (text,record) => {return this.renderRow(record);},
@@ -88,27 +89,7 @@ class Account extends Component{
   };
 
   renderRow = (record)=>{
-    let data = record;
-    console.log('>>>>>>>', data);
-    if(data){
-      let action_info = record.action_info;
-      return (
-        <div>
-          <div className={styles.tradeTbData}>
-            <div>交易ID: <a href="javascript:void(0)" onClick={() => {this.toTradePage(data.id);}}>{data.id}</a></div>
-            <div>{data.timestamp}</div>
-          </div>
-          <div>
-            {
-              action_info.map((item, index) => {
-                return ActionItem(item, index);
-              })
-            }
-          </div>
-        </div>);
-    }else{
-      return <div></div>;
-    }
+    return TradeRow(record,(id) => {this.toTradePage(id)});
   };
 
   componentWillReceiveProps(nextProps){

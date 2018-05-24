@@ -7,7 +7,7 @@ import MyTable from '../../components/MyTable';
 import jQuery from 'jquery';
 import styles from './css/Block.css';
 import NotFound from '../../components/NotFound';
-import ActionItem from '../../components/ActionItem';
+import TradeRow from '../../components/TradeRow';
 const TabPane = Tabs.TabPane;
 
 class Block extends Component{
@@ -23,21 +23,11 @@ class Block extends Component{
       this.mypre = null;
       this.columns = [{
           title: '交易',
+          className:'myCol',
           dataIndex: 'id',
           key: 'id',
           render: (text,record,index) => {
-            let action_info = record.action_info;
-            return (<div>
-              <div className={styles.tradeTbData}>
-                <div className={styles.normalText}>交易ID: <a href="javascript:void(0);" onClick={()=>{this.toTradePage(text)}}>{text}</a></div>
-                <div>{record.timestamp}</div>
-              </div>
-              {
-                action_info.map((item,index)=>{
-                  return ActionItem(item,index);
-                })
-              }
-            </div>);
+            return TradeRow(record,()=>{this.toTradePage(text)});
           }
       }];
     }
@@ -110,13 +100,21 @@ class Block extends Component{
     }
 
    getBlockTrade = (page_num,page_size)=>{
+     let id = this.props.match.params.id;
+     let params = {
+       page_num: page_num,
+       page_size: page_size,
+     };
+     //hash值
+     if(id.length == 64){
+       params.block_hash = id;
+     }else{
+       params.block_num = parseInt(id);
+     }
+
      this.props.dispatch({
        type: 'eos/getBlockTrade',
-       params:{
-         block_num: parseInt(this.props.match.params.id),
-         page_num: page_num,
-         page_size: page_size,
-       },
+       params,
        callback: (data)=>{
          data.transaction_info.map((item,index)=>{
            item.key = index;

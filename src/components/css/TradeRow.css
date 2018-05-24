@@ -1,0 +1,23 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafafa;
+    padding: 10px;
+}
+
+.line{
+    padding: 0px 10px 20px;
+}
+
+.rowContent{
+    border: 1px solid #e8e8e8;
+    margin-bottom: 8px;
+}
+
+.division{
+    height: 1px;
+    background: #e8e8e8;
+    margin-top: 20px;
+
+}
