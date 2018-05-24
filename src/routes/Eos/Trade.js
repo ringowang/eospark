@@ -195,31 +195,50 @@ class Trade extends Component{
         </div>
 
         <div className={styles.basic}>
-          <div><span className={styles.title}>交易Hash:</span> {detail.id}</div>
+          <div style={{marginBottom: 10}}><span className={styles.title}>交易Hash:</span> {detail.id}</div>
 
-          <div className={styles.line}>
-            <div className={styles.left}>过期时间：{detail.expiration}</div>
-            <div className={styles.right}>签名: {signatures}</div>
+          <div style={{overflow:'hidden'}}>
+
+            <div className={styles.leftWrapper}>
+              <div className={styles.item}>
+                <div className={styles.itemLabel}>过期时间:</div>
+                <div className={styles.itemValue}>{detail.expiration}</div>
+              </div>
+              <div className={styles.item}>
+                <div className={styles.itemLabel}>所在区块:</div>
+                <div className={styles.itemValue}><a href="javascript:void(0)" onClick={ ()=> {this.toBlockPage(detail.block_num)} }>#{detail.block_num}</a></div>
+              </div>
+              <div className={styles.item}>
+                <div className={styles.itemLabel}>引用区块:</div>
+                <div className={styles.itemValue}><a href="javascript:void(0)" onClick={ ()=> {this.toBlockPage(detail.ref_block_num)} }>#{detail.ref_block_num}</a></div>
+              </div>
+              <div className={styles.item}>
+                <div className={styles.itemLabel}>确认数:</div>
+                <div className={styles.itemValue}>{detail.block_num - detail.ref_block_num}</div>
+              </div>
+              <div className={styles.item}>
+                <div className={styles.itemLabel}>delay_sec:</div>
+                <div className={styles.itemValue}>{detail.delay_sec}</div>
+              </div>
+            </div>
+
+            <div className={styles.rightWrapper}>
+              <div className={styles.item}>
+                <div className={styles.itemLabel2}>签名:</div>
+                <div className={styles.itemValue2}>{signatures}</div>
+              </div>
+              <div className={styles.item}>
+                <div className={styles.itemLabel2}>压缩数据:</div>
+                <div className={styles.itemValue2}>{detail.packed_trx}</div>
+              </div>
+              <div className={styles.item}>
+                <div className={styles.itemLabel2}>max_net_usage_words:</div>
+                <div className={styles.itemValue2}>{detail.max_kcpu_usage}</div>
+              </div>
+            </div>
+
           </div>
-          <div className={styles.line}>
-            <div className={styles.left}>所在区块：<a href="javascript:void(0)" onClick={ ()=> {this.toBlockPage(detail.block_num)} }>#{detail.block_num}</a></div>
-            <div className={styles.right}>压缩数据：{detail.packed_trx} </div>
-          </div>
-          <div className={styles.line}>
-            <div>引用区块：<a href="javascript:void(0)" onClick={ ()=> {this.toBlockPage(detail.ref_block_num)} }>#{detail.ref_block_num}</a></div>
-          </div>
-          <div className={styles.line}>
-            <div>确认数：{detail.block_num - detail.ref_block_num} </div>
-          </div>
-          <div className={styles.line}>
-            <div>max_net_usage_words：{detail.max_kcpu_usage} </div>
-          </div>
-          <div className={styles.line}>
-            <div>max_kcpu_usage：{detail.max_kcpu_usage} </div>
-          </div>
-          <div className={styles.line}>
-            <div>delay_sec：{detail.delay_sec}</div>
-          </div>
+
         </div>
         <div className={styles.detail}>
           <Tabs defaultActiveKey="1" onChange={()=>{}}>

@@ -82,3 +82,41 @@
     padding: 30px 50px;
     margin: 20px 0;
 }
+
+.leftWrapper{
+    float: left;
+    width: 300px;
+}
+
+.rightWrapper{
+    margin-left: 300px;
+}
+
+.item{
+    padding: 4px 0;
+}
+
+.itemLabel{
+    display: inline-block;
+    width: 76px;
+    text-align: right;
+    margin-right: 4px;
+}
+
+.itemValue{
+    display: inline-block;
+    color: #909090;
+}
+
+.itemLabel2{
+    width: 150px;
+    text-align: right;
+    margin-right: 4px;
+    float: left;
+}
+
+.itemValue2{
+    color: #909090;
+    word-break:break-all;
+    margin-left: 150px;
+}

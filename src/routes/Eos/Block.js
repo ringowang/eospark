@@ -193,21 +193,41 @@ class Block extends Component{
           <div className={styles.basic}>
             <div className={styles.title}>区块#{detail.block_num}</div>
 
-            <div className={styles.line}>
-              <div className={styles.left}>出块时间：{detail.timestamp}</div>
-              <div className={styles.right}>block_id: {detail.id}</div>
+            <div style={{overflow:'hidden'}}>
+              <div className={styles.leftWrapper}>
+                <div className={styles.item}>
+                  <div className={styles.itemLabel}>出块时间:</div>
+                  <div className={styles.itemValue}>{detail.timestamp}</div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.itemLabel}>出块节点:</div>
+                  <div className={styles.itemValue}><a href="javascript:void(0);" onClick={()=>{this.toBlockProducerPage(detail.producer)}}>{detail.producer}</a></div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.itemLabel}>前一个区块:</div>
+                  <div className={styles.itemValue}><a href="javascript:void(0)" onClick={()=>this.toBlockPage(detail.block_num-1)}>#{detail.block_num-1}</a></div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.itemLabel}>后一个区块:</div>
+                  <div className={styles.itemValue}><a href="javascript:void(0)" onClick={()=>this.toBlockPage(detail.block_num+1)}>#{detail.block_num+1}</a></div>
+                </div>
+              </div>
+              <div className={styles.rightWrapper}>
+                <div className={styles.item}>
+                  <div className={styles.itemLabel2}>block_id:</div>
+                  <div className={styles.itemValue2}>{detail.id}</div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.itemLabel2}>transaction_mroot:</div>
+                  <div className={styles.itemValue2}>{detail.transaction_mroot}</div>
+                </div>
+                <div className={styles.item}>
+                  <div className={styles.itemLabel2}>出块节点签名:</div>
+                  <div className={styles.itemValue2}>{detail.producer_signature}</div>
+                </div>
+              </div>
             </div>
-            <div className={styles.line}>
-              <div className={styles.left}>出块节点：<a href="javascript:void(0);" onClick={()=>{this.toBlockProducerPage(detail.producer)}}>{detail.producer}</a></div>
-              <div className={styles.right}>transaction_mroot：{detail.transaction_mroot}</div>
-            </div>
-            <div className={styles.line}>
-              <div className={styles.left}>前一个区块：<a href="javascript:void(0)" onClick={()=>this.toBlockPage(detail.block_num-1)}>#{detail.block_num-1}</a></div>
-              <div className={styles.right}>出块节点签名：{detail.producer_signature}</div>
-            </div>
-            <div className={styles.line}>
-              <div className={styles.left}>后一个区块：<a href="javascript:void(0)" onClick={()=>this.toBlockPage(detail.block_num+1)}>#{detail.block_num+1}</a></div>
-            </div>
+
           </div>
 
           <div className={styles.detail}>
