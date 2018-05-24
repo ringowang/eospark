@@ -10,7 +10,7 @@ class NotFound extends Component {
   render(){
     return (
       <div>
-        <h1 style={{textAlign:'center'}}>抱歉，未找到相关信息</h1>
+        <h1 style={{textAlign:'center',color:'#909090', marginTop: 200}}>抱歉，未找到相关信息</h1>
       </div>
     );
   }
