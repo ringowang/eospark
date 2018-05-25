@@ -77,14 +77,16 @@ class Account extends Component{
   };
 
   toAccountPage = (id)=>{
-    this.props.dispatch(routerRedux.push(tool.getUri('/account/'+id)));
+    window.location = window.location.origin + tool.getUri('/account/'+id);
+    //this.props.dispatch(routerRedux.push(tool.getUri('/account/'+id)));
   };
 
   toPage = (id)=>{
-    if(id.length > 20){
+    if(id.length > 12){
       this.props.dispatch(routerRedux.push(tool.getUri('/address/'+id)));
     }else{
-      this.props.dispatch(routerRedux.push(tool.getUri('/account/'+id)));
+      window.location = window.location.origin + tool.getUri('/account/'+id);
+      //this.props.dispatch(routerRedux.push(tool.getUri('/account/'+id)));
     }
   };
 
