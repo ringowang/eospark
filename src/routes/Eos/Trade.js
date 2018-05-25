@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { Tabs,Table,Spin } from 'antd';
+import { Tabs,Table,Spin,Icon,Modal } from 'antd';
 import jQuery from 'jquery';
 import NotFound from '../../components/NotFound';
 import * as tool from '../../utils/tool';
@@ -27,16 +27,40 @@ class Trade extends Component{
     }];
   }
 
+  showMore = (detail) => {
+    let myObject = JSON.parse(detail);
+    // 格式化
+    let formattedStr = JSON.stringify(myObject, null, 2);
+    Modal.info({
+      maskClosable: true,
+      okText: '确定',
+      title: '参数:',
+      width: 700,
+      content: <pre>{formattedStr}</pre>,
+    });
+  };
+
   renderRow = (record)=>{
      let data = record;
      console.log('>>>>>>>', data);
+
+    let flag = false;
+    let s = data.data;
+    if(s.length > 108){
+      flag = true;
+      s = s.substring(0,100) + '...';
+    }
+
      if(data){
        return (<div>
          <div style={{display: 'flex'}}>
            <div style={{width: 220}}>发起人：{data.actor}@{data.permission}</div>
            <div style={{width: 160}}>合约: {data.account}</div>
            <div style={{ width: 150}}>接口: {data.name}</div>
-           <div style={{ width: 760}} className={styles.params}>参数: {data.data}</div>
+           <div style={{ width: 760}} className={styles.params}>
+             <span>参数: {s}</span>
+             {flag ? <Icon onClick={()=>this.showMore(data.data)} style={{marginLeft:10,cursor:'pointer',color:'#2d8fff',fontWeight:'bold'}} type="search"/> :null}
+           </div>
          </div>
          <div style={{marginTop: 10, color: '#ccc'}}>hex_data {data.hex_data}</div>
        </div>);
@@ -130,8 +154,8 @@ class Trade extends Component{
     for(let i in data){
       let item = data[i];
       item.authorization.map((d,index)=>{
-        item.actor = item.actor;
-        item.permission = item.permission;
+        item.actor = d.actor;
+        item.permission = d.permission;
         item.key = i;
         rs.push(item);
       });

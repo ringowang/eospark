@@ -36,22 +36,6 @@ class Block extends Component{
       this.props.dispatch(routerRedux.push(tool.getUri('/tx/'+id)));
     };
 
-    renderActionItem = (data,index)=>{
-      console.log('>>>>>>>', data);
-      if(data){
-        return (<div key={index}>
-          <div style={{display:'flex'}}>
-            <div style={{flex:1}}>发起人：{data.authorization[0].actor}@{data.authorization[0].permission}</div>
-            <div style={{flex:1}}>合约: {data.account}</div>
-            <div style={{flex:1}}>接口: {data.name}</div>
-            <div style={{flex:1}}>参数: {data.data}</div>
-          </div>
-        </div>);
-      }else{
-        return <div></div>;
-      }
-    };
-
     componentWillReceiveProps(nextProps){
       console.log('》》》props变化', nextProps);
       if(this.props.match.params.id != nextProps.match.params.id){

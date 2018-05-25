@@ -1,5 +1,18 @@
 import styles from './css/TradeRow.css';
-import {Icon} from 'antd';
+import {Icon,Modal} from 'antd';
+
+let showMore = (detail) => {
+  let myObject = JSON.parse(detail);
+  // 格式化
+  let formattedStr = JSON.stringify(myObject, null, 2);
+  Modal.info({
+    maskClosable: true,
+    okText: '确定',
+    title: '参数:',
+    width: 700,
+    content: <pre>{formattedStr}</pre>,
+  });
+};
 
 let ActionItem = (data,index,isLast=false)=>{
   let creater = '';
@@ -10,6 +23,12 @@ let ActionItem = (data,index,isLast=false)=>{
   if(index == 0){
     _style = {paddingTop:20};
   }
+  let flag = false;
+  let s = data.data;
+  if(s.length > 108){
+    flag = true;
+    s = s.substring(0,100) + '...';
+  }
   if(data){
     return (<div key={index} className={styles.line} style={_style}>
       <div style={{overflow:'hidden'}}>
@@ -17,7 +36,8 @@ let ActionItem = (data,index,isLast=false)=>{
         <div style={{float:'left', width: 160}}>合约: {data.account}</div>
         <div style={{float:'left', width: 150}}>接口: {data.name}</div>
         <div className={styles.params} style={{float:'left', width: 760}}>
-          <span>参数: {data.data}{data.data}</span>
+          <span>参数: {s}</span>
+          {flag ? <Icon onClick={()=>showMore(data.data)} style={{marginLeft:10,cursor:'pointer',color:'#2d8fff',fontWeight:'bold'}} type="search"/> :null}
         </div>
       </div>
       {
