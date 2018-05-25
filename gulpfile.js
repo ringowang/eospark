@@ -12,7 +12,7 @@ gulp.task('one', function(){
 
 gulp.task('two', function(){
   gulp.src('./dist/index.js')
-    .pipe(replace('s.src=t.p+""+({}[e]||e)+".async.js";', 's.src="/"+t.p+""+({}[e]||e)+" .async.js"'))
+    .pipe(replace('s.src=t.p+""+({}[e]||e)+".async.js";', 's.src="/"+t.p+""+({}[e]||e)+".async.js";'))
     .pipe(gulp.dest('./dist'));
 });
 
